@@ -4,36 +4,33 @@ import { Link } from 'react-router-dom';
 const Footer = () => {
     return (
         <div>
-            <footer className="footer p-10 bg-base-200 ">
+            <footer className="footer p-10 bg-slate-900 border-t-2 border-cyan-500	">
                 <div>
-                    <span className="footer-title lg:text-lg md:text-lg">Services</span>
-                    <Link to='/' className="link lg:text-lg md:text-lg link-hover">Home</Link>
-                    <Link className="link lg:text-lg md:text-lg link-hover">Branding</Link>
-                    <Link className="link lg:text-lg md:text-lg link-hover">Marketing</Link>
-                    <Link className="link lg:text-lg md:text-lg link-hover">Advertisement</Link>
+                    <span className="footer-title lg:text-lg md:text-lg text-secondary">Services</span>
+                    <Link to='/' className="link lg:text-lg md:text-lg text-primary link-hover">Home</Link>
+                    <Link className="link lg:text-lg md:text-lg text-primary link-hover">Branding</Link>
+
                 </div>
                 <div>
-                    <span className="footer-title lg:text-lg md:text-lg">Company</span>
-                    <Link to='/' className="link lg:text-lg md:text-lg link-hover">Home</Link>
-                    <Link className="link link-hover lg:text-lg md:text-lg">About us</Link>
-                    <Link className="link link-hover lg:text-lg md:text-lg">Contact</Link>
-                    <Link className="link link-hover lg:text-lg md:text-lg">Jobs</Link>
+                    <span className="footer-title lg:text-lg md:text-lg text-secondary">Company</span>
+                    <Link to='/' className="link lg:text-lg md:text-lg text-primary link-hover">Home</Link>
+                    <Link className="link link-hover text-primary lg:text-lg md:text-lg">About us</Link>
+
                 </div>
                 <div>
-                    <span className="footer-title lg:text-lg md:text-lg">Legal</span>
-                    <Link to='/' className="link lg:text-lg md:text-lg link-hover">Home</Link>
-                    <Link className="link lg:text-lg md:text-lg link-hover">Terms of use</Link>
-                    <Link className="link lg:text-lg md:text-lg link-hover">Privacy policy</Link>
-                    <Link className="link lg:text-lg md:text-lg link-hover">Cookie policy</Link>
+                    <span className="footer-title lg:text-lg md:text-lg text-secondary">Legal</span>
+                    <Link to='/' className="link lg:text-lg md:text-lg text-primary link-hover">Home</Link>
+                    <Link className="link lg:text-lg md:text-lg text-primary link-hover">Terms of use</Link>
+
                 </div>
             </footer>
 
-            <footer className="footer px-10 py-4 border-t-2 border-cyan-500	 bg-base-200 text-base-content justify-between items-center ">
+            <footer className="footer px-10 py-4 	 bg-slate-900 text-base-content justify-between items-center ">
                 <Link className='lg:flex md:flex  items-center '>
                     <img
                         className='lg:w-16 md:w-16 w-10 '
                         src="https://i.ibb.co/PgQrkn4/revive-mobile-logo-removebg-preview.png" alt="" />
-                    <p className="lg:text-xl md:text-xl lg:ml-4 md:ml-4 text-cyan-700 lg:font-semibold md:font-semibold"><span className='lg:text-3xl md:text-2xl	'>R</span>evive<span className='lg:text-3xl md:text-2xl	'>M</span>obile</p>
+                    <p className="lg:text-xl md:text-xl lg:ml-4 md:ml-4 text-primary lg:font-semibold md:font-semibold"><span className='lg:text-3xl md:text-2xl	'>R</span>evive<span className='lg:text-3xl md:text-2xl	'>M</span>obile</p>
                 </Link>
                 <div className="md:place-self-center md:justify-self-end">
                     <div className="grid grid-flow-col gap-4">
@@ -43,7 +40,7 @@ const Footer = () => {
                     </div>
                 </div>
                 <div>
-                    <p className='lg:text-lg font-semibold md:text-2xl'>Copyright © ReviveMobile 2023</p>
+                    <p className='lg:text-lg text-primary font-semibold md:text-2xl'>Copyright © ReviveMobile 2023</p>
                 </div>
 
             </footer>

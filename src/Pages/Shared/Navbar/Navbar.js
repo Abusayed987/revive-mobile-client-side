@@ -25,7 +25,7 @@ const Navbar = () => {
 
     return (
         <div>
-            <div className="navbar bg-base-100">
+            <div className="navbar bg-base-100	">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -39,7 +39,7 @@ const Navbar = () => {
                         <img
                             className='lg:w-16 md:w-16 w-10 '
                             src="https://i.ibb.co/PgQrkn4/revive-mobile-logo-removebg-preview.png" alt="" />
-                        <p className="lg:text-xl md:text-xl lg:ml-4 md:ml-4 text-cyan-700 lg:font-semibold md:font-semibold"><span className='lg:text-3xl md:text-2xl	'>R</span>evive<span className='lg:text-3xl md:text-2xl	'>M</span>obile</p>
+                        <p className="lg:text-xl md:text-xl lg:ml-4 md:ml-4 text-cyan-500 lg:font-semibold md:font-semibold"><span className='lg:text-3xl md:text-2xl	'>R</span>evive<span className='lg:text-3xl md:text-2xl	'>M</span>obile</p>
                     </Link>
                 </div>
 
@@ -57,7 +57,7 @@ const Navbar = () => {
                                 <span className="badge badge-sm indicator-item">8</span>
                             </div>
                         </label> */}
-                        <Link className='btn btn-ghost lg:mr-2 md:mr-2 font-bold'>
+                        <Link to='/login' className='btn btn-ghost lg:mr-2 md:mr-2 font-bold'>
                             Dashboard
                             <div className=' w-full pb-1 rounded-full bg-cyan-700 '></div>
                         </Link>
