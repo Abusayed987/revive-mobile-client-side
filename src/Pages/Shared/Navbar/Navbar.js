@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaCaretDown, FaDashcube } from 'react-icons/fa';
+import { FaCaretDown } from 'react-icons/fa';
 
 const Navbar = () => {
     const navItem = <>
@@ -12,7 +12,7 @@ const Navbar = () => {
             <Link className="lg:text-lg md:text-lg">
                 Category <FaCaretDown></FaCaretDown>
             </Link>
-            <ul className="p-2 shadow-md">
+            <ul className="p-2 shadow-md bg-white">
                 <li><Link>Basic </Link></li>
                 <li><Link>Android </Link></li>
                 <li><Link>iOS </Link></li>
@@ -35,11 +35,11 @@ const Navbar = () => {
                             {navItem}
                         </ul>
                     </div>
-                    <Link className='lg:flex md:flex  items-center '>
+                    <Link to='/' className='lg:flex md:flex  items-center '>
                         <img
                             className='lg:w-16 md:w-16 w-10 '
-                            src="https://i.ibb.co/znMx7JM/revive-mobile-logo.jpg" alt="" />
-                        <p className="lg:text-xl md:text-xl lg:ml-4 md:ml-4 text-blue-500 lg:font-semibold md:font-semibold"><span className='lg:text-3xl md:text-2xl	'>R</span>evive<span className='lg:text-3xl md:text-2xl	'>M</span>obile</p>
+                            src="https://i.ibb.co/PgQrkn4/revive-mobile-logo-removebg-preview.png" alt="" />
+                        <p className="lg:text-xl md:text-xl lg:ml-4 md:ml-4 text-cyan-700 lg:font-semibold md:font-semibold"><span className='lg:text-3xl md:text-2xl	'>R</span>evive<span className='lg:text-3xl md:text-2xl	'>M</span>obile</p>
                     </Link>
                 </div>
 
@@ -59,6 +59,7 @@ const Navbar = () => {
                         </label> */}
                         <Link className='btn btn-ghost lg:mr-2 md:mr-2 font-bold'>
                             Dashboard
+                            <div className=' w-full pb-1 rounded-full bg-cyan-700 '></div>
                         </Link>
                         {/* <div tabIndex={0} className="mt-3 card card-compact dropdown-content w-52 bg-base-100 shadow">
                             <div className="card-body">
