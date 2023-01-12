@@ -3,9 +3,19 @@ import { Link } from 'react-router-dom';
 import { FaCaretDown, FaSignInAlt, FaSignOutAlt } from 'react-icons/fa';
 import { AuthContext } from '../../../Context/AuthProvider';
 import { toast } from 'react-hot-toast';
+import { useQuery } from 'react-query';
 
 const Navbar = () => {
     const { user, logout } = useContext(AuthContext)
+
+    const { data: categoriesItems = [], isLoading } = useQuery({
+        queryKey: "categoriesItems",
+        queryFn: async () => {
+            const res = await fetch('http://localhost:4000/categories');
+            const data = await res.json();
+            return data;
+        }
+    })
 
     const handleLogout = () => {
         logout()
@@ -26,9 +36,11 @@ const Navbar = () => {
                 Category <FaCaretDown></FaCaretDown>
             </Link>
             <ul className="p-2 shadow-md bg-white">
-                <li><Link>Basic </Link></li>
-                <li><Link>Android </Link></li>
-                <li><Link>iOS </Link></li>
+                {
+                    categoriesItems.map(category => <li key={category._id}>
+                        <Link to={`categories/${category._id}`}>{category.name}</Link>
+                    </li>)
+                }
             </ul>
         </li>
         <li>

@@ -1,7 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Category = ({ category }) => {
+
     const { name, imgUrl, _id } = category;
+
 
     return (
         <div>
@@ -13,9 +16,9 @@ const Category = ({ category }) => {
                 </figure>
                 <div className="card-body">
                     <h2 className="card-title">{name}</h2>
-                    <p>Click the button to watch All {name}</p>
+                    <p>Click the button to See all All {name}</p>
                     <div className="">
-                        <button className="btn btn-primary btn-sm ">Watch</button>
+                        <Link to={`categories/${_id}`} className="btn btn-primary btn-sm ">See all</Link>
                     </div>
                 </div>
             </div>
