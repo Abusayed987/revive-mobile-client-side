@@ -1,8 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { FaCaretDown } from 'react-icons/fa';
+import { FaCaretDown, FaSignInAlt } from 'react-icons/fa';
+import { AuthContext } from '../../../Context/AuthProvider';
+import { toast } from 'react-hot-toast';
 
 const Navbar = () => {
+    const { user, logout } = useContext(AuthContext)
+    console.log(user);
+
+    const handleLogout = () => {
+        logout()
+            .then(() => {
+                toast.success("Successfully logout")
+            })
+            .catch(err => console.error(err))
+    }
+
+
     const navItem = <>
         <li><Link to='/' className='lg:text-lg md:text-lg' >Home</Link></li>
         <li tabIndex={0}>
@@ -71,22 +85,27 @@ const Navbar = () => {
                             </div>
                         </div> */}
                     </div>
-                    <div className="dropdown dropdown-end">
-                        <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                            <div className="w-10 rounded-full">
-                                <img src="https://placeimg.com/80/80/people" alt='' />
-                            </div>
-                        </label>
-                        <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-                            <li>
-                                <Link className="justify-between">
-                                    Profile
-                                    <span className="badge">New</span>
-                                </Link>
-                            </li>
-                            <li><Link>Logout</Link></li>
-                        </ul>
-                    </div>
+                    {user?.uid ?
+                        <div className="dropdown dropdown-end">
+                            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                                <div className="w-10 rounded-full">
+                                    <img src="https://placeimg.com/80/80/people" alt='' />
+                                </div>
+                            </label>
+                            <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+                                <li>
+                                    <Link className="justify-between">
+                                        {user?.displayName}
+                                    </Link>
+                                </li>
+                                <li><Link onClick={handleLogout} >Logout</Link></li>
+                            </ul>
+                        </div>
+                        :
+                        <div className='tooltip tooltip-left lg:text-2xl md:text-2xl text-lg bg-black text-primary p-2 rounded-full' data-tip="Login">
+                            <Link to="/login"><FaSignInAlt></FaSignInAlt></Link>
+                        </div>
+                    }
                 </div>
             </div>
         </div>

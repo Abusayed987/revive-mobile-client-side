@@ -1,12 +1,31 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from "react-hook-form";
+import { toast } from 'react-hot-toast';
+import { AuthContext } from '../../Context/AuthProvider';
 
 
 const Signup = () => {
     const { register, handleSubmit } = useForm();
+    const { createUser } = useContext(AuthContext)
     const handleLogin = data => {
-        console.log(data)
+        if (data.password.length < 6) {
+            return toast.error("Password must be at last 6 characters")
+        }
+        if (data.password !== data.confirmPass) {
+            return toast.error("Password Did not Match")
+        }
+
+        createUser(data.email, data.password)
+            .then(result => {
+                const user = result.user
+                console.log(user);
+            })
+            .catch(err => {
+                toast.error(err.message)
+            })
+
+
     };
     return (
         <div>
