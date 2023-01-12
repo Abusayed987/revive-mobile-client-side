@@ -27,7 +27,12 @@ const Navbar = () => {
 
 
     const navItem = <>
-        <li><Link to='/' className='lg:text-lg md:text-lg' >Home</Link></li>
+        <li>
+            <Link to='/'>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 lg:w-5 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
+                <span className="btm-nav-label lg:text-lg">Home</span>
+            </Link>
+        </li>
         <li tabIndex={0}>
             <Link className='lg:text-lg md:text-lg'>All Ads</Link>
         </li>
@@ -100,16 +105,16 @@ const Navbar = () => {
                             <ul tabIndex={0} className="menu menu-compact  dropdown-content mt-3 p-2 shadow bg-base-100 rounded-lg " >
                                 <div className=' border'>
                                     {
-                                        <h2 className='mt-3 mx-2  lg:text-lg text-center text-primary font-semibold'>
+                                        <h2 className='mt-3 mx-2  lg:text-lg text-sm text-center text-primary font-semibold'>
                                             {user.displayName}
                                         </h2>
                                     }
                                     {
-                                        user?.photoURL &&
+                                        user?.photoURL ||
                                         <span className=' divider w-11/12 mx-auto my-0'></span>
                                     }
                                     <div className='p-1' >
-                                        {user?.photoURL &&
+                                        {user?.photoURL ||
                                             <>
                                                 <p className=' text-secondary text-center  mb-4'>
                                                     Update photo

@@ -11,7 +11,7 @@ const Login = () => {
 
     const navigate = useNavigate();
     const location = useLocation();
-    const form = location.state?.form?.pathname || "/"
+    const from = location.state?.from?.pathname || "/"
 
     const handleLogin = data => {
         console.log(data)
@@ -19,7 +19,7 @@ const Login = () => {
             .then((result) => {
                 const user = result.user;
                 console.log(user);
-                navigate(form, { replace: true })
+                navigate(from, { replace: true })
             })
             .catch(err => {
                 toast.error(err.message)

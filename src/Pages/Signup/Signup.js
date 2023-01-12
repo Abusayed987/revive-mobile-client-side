@@ -8,6 +8,7 @@ import { AuthContext } from '../../Context/AuthProvider';
 const Signup = () => {
     const { register, handleSubmit } = useForm();
     const { createUser, updateUser } = useContext(AuthContext)
+
     const handleLogin = data => {
         if (data.password.length < 6) {
             return toast.error("Password must be at last 6 characters")
@@ -38,6 +39,7 @@ const Signup = () => {
 
 
     };
+
     return (
         <div>
             <div className="card flex-shrink-0 lg:w-5/12 md:w-5/12 w-11/12 mx-auto mt-5 mb-10 shadow-2xl bg-base-100">
