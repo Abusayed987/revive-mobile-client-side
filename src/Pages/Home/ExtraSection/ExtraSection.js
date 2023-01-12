@@ -9,7 +9,7 @@ const ExtraSection = () => {
                 <div className="card card-side bg-base-100 shadow-xl lg:w-6/12 md:w-6/12 mx-auto ">
                     <figure className='p-8'>
                         <img
-                            className='w-20 h-20'
+                            className='w-20 h-20 rounded-sm'
                             src="https://placeimg.com/200/280/arch" alt="Movie" /></figure>
                     <div className="card-body">
                         <h2 className="card-title">Start making money! </h2>
@@ -25,7 +25,7 @@ const ExtraSection = () => {
 
                 <div className="card card-side bg-base-100 shadow-xl lg:w-6/12 md:w-6/12 mx-auto">
                     <figure className='p-8'>
-                        <img className='w-24 h-20'
+                        <img className='w-24 h-20 rounded-sm'
                             src="https://placeimg.com/200/280/arch" alt="Movie" /></figure>
                     <div className="card-body">
                         <h2 className="card-title">Start making money! </h2>
