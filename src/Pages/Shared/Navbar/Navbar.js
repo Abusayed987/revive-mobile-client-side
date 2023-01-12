@@ -1,12 +1,11 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { FaCaretDown, FaSignInAlt } from 'react-icons/fa';
+import { FaCaretDown, FaSignInAlt, FaSignOutAlt } from 'react-icons/fa';
 import { AuthContext } from '../../../Context/AuthProvider';
 import { toast } from 'react-hot-toast';
 
 const Navbar = () => {
     const { user, logout } = useContext(AuthContext)
-    console.log(user);
 
     const handleLogout = () => {
         logout()
@@ -71,34 +70,62 @@ const Navbar = () => {
                                 <span className="badge badge-sm indicator-item">8</span>
                             </div>
                         </label> */}
-                        <Link to='/login' className='btn btn-ghost lg:mr-2 md:mr-2 font-bold'>
+
+                        <Link to='/dashboard' className='btn lg:btn-sm md:btn-sm btn-xs btn-ghost lg:mr-2 md:mr-2 font-bold '>
                             Dashboard
                             <div className=' w-full pb-1 rounded-full bg-cyan-700 '></div>
                         </Link>
-                        {/* <div tabIndex={0} className="mt-3 card card-compact dropdown-content w-52 bg-base-100 shadow">
-                            <div className="card-body">
-                                <span className="font-bold text-lg">8 Items</span>
-                                <span className="text-info">Subtotal: $999</span>
-                                <div className="card-actions">
-                                    <button className="btn btn-primary btn-block">View cart</button>
-                                </div>
-                            </div>
-                        </div> */}
+
                     </div>
                     {user?.uid ?
                         <div className="dropdown dropdown-end">
                             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                                <div className="w-10 rounded-full">
-                                    <img src="https://placeimg.com/80/80/people" alt='' />
-                                </div>
+                                <>
+                                    {user?.photoURL ?
+                                        <div className="w-10 rounded-full">
+                                            <img src="https://placeimg.com/80/80/people" alt='' />
+                                        </div>
+                                        :
+                                        <div className="w-10 rounded-full">
+                                            <img className='  bg-cyan-600'
+                                                src="https://i.ibb.co/Qk36cwY/unknown-P-profile-removebg-preview.png" alt='' />
+                                        </div>
+                                    }
+                                </>
                             </label>
-                            <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-                                <li>
-                                    <Link className="justify-between">
-                                        {user?.displayName}
-                                    </Link>
-                                </li>
-                                <li><Link onClick={handleLogout} >Logout</Link></li>
+                            <ul tabIndex={0} className="menu menu-compact  dropdown-content mt-3 p-2 shadow bg-base-100 rounded-lg " >
+                                <div className=' border'>
+                                    {
+                                        <h2 className='mt-3 mx-2  lg:text-lg text-center text-primary font-semibold'>
+                                            {user.displayName}
+                                        </h2>
+                                    }
+                                    {
+                                        user?.photoURL &&
+                                        <span className=' divider w-11/12 mx-auto my-0'></span>
+                                    }
+                                    <div className='p-1' >
+                                        {user?.photoURL &&
+                                            <>
+                                                <p className=' text-secondary text-center  mb-4'>
+                                                    Update photo
+                                                </p>
+
+                                                <input type="file"
+                                                    className='w-52  text-secondary  mb-4 border'
+                                                />
+                                            </>
+                                        }
+                                    </div>
+                                </div>
+
+                                <li className='mt-4'>
+                                    <Link
+                                        className=' lg:text-lg bg-primary text-white'
+                                        onClick={handleLogout} >
+                                        <FaSignOutAlt></FaSignOutAlt> Logout
+                                    </Link></li>
+
                             </ul>
                         </div>
                         :

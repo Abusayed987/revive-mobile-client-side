@@ -7,7 +7,7 @@ import { AuthContext } from '../../Context/AuthProvider';
 
 const Signup = () => {
     const { register, handleSubmit } = useForm();
-    const { createUser } = useContext(AuthContext)
+    const { createUser, updateUser } = useContext(AuthContext)
     const handleLogin = data => {
         if (data.password.length < 6) {
             return toast.error("Password must be at last 6 characters")
@@ -18,8 +18,19 @@ const Signup = () => {
 
         createUser(data.email, data.password)
             .then(result => {
-                const user = result.user
-                console.log(user);
+                // const user = result.user
+                const userInfo = {
+                    displayName: data.name
+                }
+                updateUser(userInfo)
+                    .then(() => {
+                        toast.success('Create user Successfully')
+                        //akhan theke user gulu mongobd te pathaite hobe.
+                        const user = result.user
+                        console.log(user);
+                    })
+                    .catch(err => console.error(err))
+
             })
             .catch(err => {
                 toast.error(err.message)
