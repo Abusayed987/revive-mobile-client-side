@@ -1,7 +1,12 @@
 import { createBrowserRouter } from "react-router-dom";
 import DashboardLayout from "../../Layout/DashboardLayout/DashboardLayout";
 import MainLayout from "../../Layout/Main/MainLayout";
+import AddProduct from "../../Pages/Dashboard/AddProduct/AddProduct";
+import AllBuyers from "../../Pages/Dashboard/AllBuyers/AllBuyers";
+import AllSellers from "../../Pages/Dashboard/AllSellers/AllSellers";
 import Dashboard from "../../Pages/Dashboard/Dashboard";
+import MyOrders from "../../Pages/Dashboard/MyOrders/MyOrders";
+import MyProducts from "../../Pages/Dashboard/MyProducts/MyProducts";
 import CategoryItems from "../../Pages/Home/Categories/CategoryItems/CategoryItems";
 import Home from "../../Pages/Home/Home/Home";
 import Login from "../../Pages/Login/Login";
@@ -34,12 +39,32 @@ const router = createBrowserRouter([
     },
     {
         path: '/dashboard',
-        element: <DashboardLayout></DashboardLayout>,
+        element: <PrivateRoute> <DashboardLayout></DashboardLayout></PrivateRoute>,
         children: [
             {
                 path: "/dashboard",
-                element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>
-            }
+                element: <Dashboard></Dashboard>
+            },
+            {
+                path: "/dashboard/myOrders",
+                element: <MyOrders></MyOrders>
+            },
+            {
+                path: "/dashboard/myProducts",
+                element: <MyProducts></MyProducts>
+            },
+            {
+                path: "/dashboard/addProducts",
+                element: <AddProduct></AddProduct>
+            },
+            {
+                path: "/dashboard/allBuyers",
+                element: <AllBuyers></AllBuyers>
+            },
+            {
+                path: "/dashboard/AllSellers",
+                element: <AllSellers></AllSellers>
+            },
         ]
     }
 ])
