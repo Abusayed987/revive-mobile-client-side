@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Category = ({ category }) => {
+const Category = ({ category, refetch }) => {
 
     const { name, imgUrl, _id } = category;
 
@@ -18,7 +18,7 @@ const Category = ({ category }) => {
                     <h2 className="card-title">{name}</h2>
                     <p>Click the button to See all All {name}</p>
                     <div className="">
-                        <Link to={`categories/${_id}`} className="btn btn-primary btn-sm ">See all</Link>
+                        <Link onClick={refetch()} to={`categories/${_id}`} className="btn btn-primary btn-sm ">See all</Link>
                     </div>
                 </div>
             </div>

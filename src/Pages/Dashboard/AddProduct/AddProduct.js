@@ -105,6 +105,7 @@ const AddProduct = () => {
                                 </label>
                                 <input
                                     {...register("sellerName")}
+                                    defaultValue={`${user.displayName}`}
                                     type="text" placeholder="Seller Name" className="input input-bordered lg:text-lg md:text-lg border-primary " required />
                             </div>
                             <div className="form-control">

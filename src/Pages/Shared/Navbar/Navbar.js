@@ -8,7 +8,7 @@ import { useQuery } from 'react-query';
 const Navbar = () => {
     const { user, logout } = useContext(AuthContext)
 
-    const { data: categoriesItems = [], isLoading } = useQuery({
+    const { data: categoriesItems = [], isLoading, refetch } = useQuery({
         queryKey: "categoriesItems",
         queryFn: async () => {
             const res = await fetch('http://localhost:4000/categories');
@@ -16,6 +16,7 @@ const Navbar = () => {
             return data;
         }
     })
+
 
     const handleLogout = () => {
         logout()
@@ -43,7 +44,7 @@ const Navbar = () => {
             <ul className="p-2 shadow-md bg-white">
                 {
                     categoriesItems.map(category => <li key={category._id}>
-                        <Link to={`categories/${category._id}`}>{category.name}</Link>
+                        <Link onClick={refetch()} to={`categories/${category._id}`}>{category.name}</Link>
                     </li>)
                 }
             </ul>
