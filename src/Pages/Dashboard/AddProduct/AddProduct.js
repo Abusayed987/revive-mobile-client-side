@@ -21,27 +21,32 @@ const AddProduct = () => {
 
 
     const handleAddProduct = data => {
+        const date = new Date();
 
+        const day = date.getDate();
+        const month = date.getMonth() + 1;
+        const year = date.getFullYear();
 
-
+        const currentDate = `${day}-${month}-${year}`;
+        console.log(currentDate);
 
         const productImage = data.productPhoto[0];
         const formData = new FormData();
         formData.append("image", productImage);
 
-        const url = `https://api.imgbb.com/1/upload?key=${imageHostKey}`
-        fetch(url, {
-            method: "POST",
-            body: formData
-        })
-            .then(res => res.json())
-            .then(imgData => {
-                if (imgData.success) {
-                    const imgUrl = imgData.data.url;
-                    console.log(imgUrl);
-                    toast.success("product Added successfully")
-                }
-            })
+        // const url = `https://api.imgbb.com/1/upload?key=${imageHostKey}`
+        // fetch(url, {
+        //     method: "POST",
+        //     body: formData
+        // })
+        //     .then(res => res.json())
+        //     .then(imgData => {
+        //         if (imgData.success) {
+        //             const imgUrl = imgData.data.url;
+        //             console.log(imgUrl);
+        //             toast.success("product Added successfully")
+        //         }
+        //     })
 
 
 
@@ -170,7 +175,7 @@ const AddProduct = () => {
                                     <span className="label-text lg:text-lg md:text-lg">
                                         Product Photo</span>
                                 </label>
-                                <input type="file"  {...register("productPhoto")} className="file-input file-input-bordered file-input-primary w-full max-w-xs" />
+                                <input type="file"  {...register("productPhoto")} className="file-input file-input-bordered file-input-primary w-full max-w-xs" required />
                             </div>
                             <div className="form-control">
                                 <label className="label">
