@@ -108,10 +108,9 @@ const Signup = () => {
                     <div className="form-control">
                         <label className="label">
                             <span className="label-text lg:text-lg md:text-lg">
-                                Account Type?</span>
+                                Select  Account Type?</span>
                         </label>
                         <select className='select select-bordered border-primary ' {...register("userRole")}>
-                            <option disabled selected>Please Select</option>
                             <option value="buyer">As a buyer</option>
                             <option value="seller">As a seller</option>
                         </select>

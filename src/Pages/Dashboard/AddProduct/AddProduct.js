@@ -1,13 +1,15 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { useQuery } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../Context/AuthProvider';
 
 const AddProduct = () => {
     const { register, handleSubmit } = useForm();
     const { user } = useContext(AuthContext);
-    console.log(user);
+    const navigate = useNavigate();
+    const [loading, setLoading] = useState(false)
     const imageHostKey = process.env.REACT_APP_imgbbKey;
 
 
@@ -20,66 +22,73 @@ const AddProduct = () => {
         }
     })
 
-
     const handleAddProduct = data => {
         const date = new Date();
-
         const day = date.getDate();
         const month = date.getMonth() + 1;
         const year = date.getFullYear();
-
         const currentDate = `${day}-${month}-${year}`;
 
         const productImage = data.productPhoto[0];
         const formData = new FormData();
         formData.append("image", productImage);
 
-        // const url = `https://api.imgbb.com/1/upload?key=${imageHostKey}`
-        // fetch(url, {
-        //     method: "POST",
-        //     body: formData
-        // })
-        //     .then(res => res.json())
-        //     .then(imgData => {
-        //         if (imgData.success) {
-        //             const imgUrl = imgData.data.url;
-        //             console.log(imgUrl);
-        //             toast.success("product Added successfully")
-        //         }
-        //     })
 
 
+        const url = `https://api.imgbb.com/1/upload?key=${imageHostKey}`
+        fetch(url, {
+            method: "POST",
+            body: formData
+        })
+            .then(res => res.json())
+            .then(imgData => {
+                setLoading(true)
+                if (imgData.success) {
+                    const imgUrl = imgData.data.url;
+                    const product = {
+                        todayDate: currentDate,
+                        sellerName: data.sellerName,
+                        sellerEmail: user.email,
+                        productName: data.productName,
+                        originalPrice: data.originalPrice,
+                        resalePrice: data.resalePrice,
+                        usesTime: data.usesTime,
+                        isAdvertised: data.isAdvertised,
+                        location: data.location,
+                        description: data.description,
+                        Condition: data.condition,
+                        categoryId: categoriesItems.find(ctg => ctg.name === data.category)._id,
+                        imageUrl: imgUrl
+                    }
 
-        // const product = {
-        //     todayDate: currentDate,
-        //     sellerName: data.sellerName,
-        //     productName: data.productName,
-        //     originalPrice: data.originalPrice,
-        //     resalePrice: data.resalePrice,
-        //     usesTime: data.usesTime,
-        //     isAdvertised: data.isAdvertised,
-        //     location: data.location,
-        //     description: data.description,
-        //     categoryId: categoriesItems.find(ctg => ctg.name === data.category)._id
-        // }
+                    fetch("http://localhost:4000/dashboard/seller/addProduct", {
+                        method: "POST",
+                        headers: {
+                            "content-type": "application/json"
+                            //authorization dite hobe...
+                        },
+                        body: JSON.stringify(product)
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.acknowledged) {
+                                toast.success("Product Added successfully")
+                                setLoading(false);
+                                navigate("/dashboard/myProducts")
+                            }
+                        })
 
-        // fetch("http://localhost:4000/dashboard/seller/addProduct", {
-        //     method: "POST",
-        //     headers: {
-        //         "content-type": "application/json"
-        //         //authorization dite hobe...
-        //     },
-        //     body: JSON.stringify(product)
-        // })
-        //     .then(res => res.json())
-        //     .then(data => {
-        //         console.log(data);
-        //     })
+                }
+            })
 
 
-
-        //date pathaite hobe...
     };
+
+
+    if (loading) {
+        return <progress className="progress progress-primary w-full "></progress>
+    }
+
     return (
         <div className='my-4'>
             <div>
@@ -131,6 +140,13 @@ const AddProduct = () => {
                                     {...register("usesTime")}
                                     type="text" placeholder="Ex: 6 months " className="input input-bordered lg:text-lg md:text-lg border-primary " required />
                             </div>
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text lg:text-lg md:text-lg">
+                                        Description:</span>
+                                </label>
+                                <textarea  {...register("description")} className="textarea textarea-primary lg:text-lg" placeholder="Description..." required></textarea>
+                            </div>
 
                         </div>
 
@@ -154,7 +170,7 @@ const AddProduct = () => {
                                         Do you want to advertise?</span>
                                 </label>
                                 <select className=' select select-bordered border-primary ' {...register("isAdvertised")}>
-                                    <option disabled selected>Please Select</option>
+
                                     <option value="true">Yes</option>
                                     <option value="false">No</option>
                                 </select>
@@ -165,9 +181,21 @@ const AddProduct = () => {
                                         Your location ?</span>
                                 </label>
                                 <select className='select select-bordered border-primary ' {...register("location")}>
-                                    <option disabled selected>Select Your Location</option>
                                     <option value="Dhaka">Dhaka</option>
                                     <option value="Out of Dhaka">Out of Dhaka</option>
+                                </select>
+                            </div>
+
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text lg:text-lg md:text-lg">
+                                        Condition:</span>
+                                </label>
+                                <select className='select select-bordered border-primary ' {...register("condition")}>
+                                    <option value="New">New </option>
+                                    <option value="Used, like new">Used, like new</option>
+                                    <option value="Good">Good</option>
+                                    <option value="Old">Old</option>
                                 </select>
                             </div>
 
@@ -178,13 +206,7 @@ const AddProduct = () => {
                                 </label>
                                 <input type="file"  {...register("productPhoto")} className="file-input file-input-bordered file-input-primary w-full max-w-xs" required />
                             </div>
-                            <div className="form-control">
-                                <label className="label">
-                                    <span className="label-text lg:text-lg md:text-lg">
-                                        Description:</span>
-                                </label>
-                                <textarea  {...register("description")} className="textarea textarea-primary lg:text-lg" placeholder="Description..." required></textarea>
-                            </div>
+
                         </div>
                     </div>
 
