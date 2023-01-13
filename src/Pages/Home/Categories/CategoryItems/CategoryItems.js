@@ -33,7 +33,6 @@ const CategoryItems = () => {
                     ></CategoryItemCard>)
                 }
             </div>
-
         </div >
     );
 };

@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { useQuery } from 'react-query';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../Context/AuthProvider';
 
 const AddProduct = () => {
@@ -91,8 +91,9 @@ const AddProduct = () => {
 
     return (
         <div className='my-4'>
-            <div>
-                <h2 className='text-3xl'>Add A Product</h2>
+            <div className='flex items-center justify-between mb-4 mr-3'>
+                <h2 className='text-3xl my-4'>Add a Product</h2>
+                <Link to="/dashboard/myProducts" className='btn  btn-sm lg:btn-outline btn-outline btn-primary rounded-md px-2 '>My Product</Link>
             </div>
             <div>
 

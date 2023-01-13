@@ -7,6 +7,7 @@ import AllSellers from "../../Pages/Dashboard/AllSellers/AllSellers";
 import Dashboard from "../../Pages/Dashboard/Dashboard";
 import MyOrders from "../../Pages/Dashboard/MyOrders/MyOrders";
 import MyProducts from "../../Pages/Dashboard/MyProducts/MyProducts";
+import AllAdvertiseItems from "../../Pages/Home/AdvertiseItem/AllAdvertisedItems";
 import CategoryItems from "../../Pages/Home/Categories/CategoryItems/CategoryItems";
 import Home from "../../Pages/Home/Home/Home";
 import Login from "../../Pages/Login/Login";
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
                 element: <PrivateRoute><CategoryItems></CategoryItems></PrivateRoute>,
                 loader: ({ params }) => fetch(`http://localhost:4000/categories/${params.id}`)
             },
+            {
+                path: "/allAds",
+                element: <AllAdvertiseItems></AllAdvertiseItems>
+            }
         ]
     },
     {

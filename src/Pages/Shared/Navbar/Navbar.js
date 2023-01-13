@@ -1,21 +1,26 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { Await, Link } from 'react-router-dom';
 import { FaCaretDown, FaSignInAlt, FaSignOutAlt } from 'react-icons/fa';
 import { AuthContext } from '../../../Context/AuthProvider';
 import { toast } from 'react-hot-toast';
 import { useQuery } from 'react-query';
+import { async } from '@firebase/util';
 
 const Navbar = () => {
     const { user, logout } = useContext(AuthContext)
+    // const [reFresh, setRefresh] = useState(false)
 
-    const { data: categoriesItems = [], isLoading, refetch } = useQuery({
+    const { data: categoriesItems = [], refetch } = useQuery({
         queryKey: "categoriesItems",
         queryFn: async () => {
-            const res = await fetch('http://localhost:4000/categories');
-            const data = await res.json();
+            const res = await fetch("http://localhost:4000/categories")
+            const data = await res.json()
+
             return data;
         }
     })
+    // fetch('http://localhost:4000/categories')
+    // .then(res => res.json())
 
 
     const handleLogout = () => {
@@ -35,7 +40,7 @@ const Navbar = () => {
             </Link>
         </li>
         <li tabIndex={0}>
-            <Link className='lg:text-lg md:text-lg'>All Ads</Link>
+            <Link to="/allAds" className='lg:text-lg md:text-lg'>All Ads</Link>
         </li>
         <li tabIndex={0}>
             <Link className="lg:text-lg md:text-lg">
@@ -44,7 +49,7 @@ const Navbar = () => {
             <ul className="p-2 shadow-md bg-white">
                 {
                     categoriesItems.map(category => <li key={category._id}>
-                        <Link onClick={refetch()} to={`categories/${category._id}`}>{category.name}</Link>
+                        <Link onClick={refetch} to={`categories/${category._id}`}>{category.name}</Link>
                     </li>)
                 }
             </ul>

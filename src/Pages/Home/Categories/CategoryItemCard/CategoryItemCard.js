@@ -73,11 +73,14 @@ const CategoryItemCard = ({ product }) => {
 
                     <div className="lg:flex md:flex items-center justify-between mt-2">
                         <div className='mt-2'>
-                            <p className='text-sm'>{(description).slice(0, 30)}...</p>
+                            <p title={`${description}`} className='text-sm'>{(description).slice(0, 30)}...</p>
                         </div>
                         <div className='mt-2'>
                             <Link className='btn btn-primary btn-xs'>Book Now</Link>
                         </div>
+                    </div>
+                    <div className=''>
+                        <h3 className='text-end text-gray-500 text-sm mt-2'>Post: {todayDate}</h3>
                     </div>
                 </div>
             </div>
