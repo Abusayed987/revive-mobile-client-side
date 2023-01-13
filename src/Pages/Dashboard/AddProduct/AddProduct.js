@@ -6,7 +6,8 @@ import { AuthContext } from '../../../Context/AuthProvider';
 
 const AddProduct = () => {
     const { register, handleSubmit } = useForm();
-    const { user } = useContext(AuthContext)
+    const { user } = useContext(AuthContext);
+    console.log(user);
     const imageHostKey = process.env.REACT_APP_imgbbKey;
 
 
@@ -28,7 +29,6 @@ const AddProduct = () => {
         const year = date.getFullYear();
 
         const currentDate = `${day}-${month}-${year}`;
-        console.log(currentDate);
 
         const productImage = data.productPhoto[0];
         const formData = new FormData();
@@ -51,7 +51,7 @@ const AddProduct = () => {
 
 
         // const product = {
-        //     today date pathaite hobe...
+        //     todayDate: currentDate,
         //     sellerName: data.sellerName,
         //     productName: data.productName,
         //     originalPrice: data.originalPrice,
@@ -59,11 +59,11 @@ const AddProduct = () => {
         //     usesTime: data.usesTime,
         //     isAdvertised: data.isAdvertised,
         //     location: data.location,
-        //     description:data.description,
+        //     description: data.description,
         //     categoryId: categoriesItems.find(ctg => ctg.name === data.category)._id
         // }
 
-        // fetch("http://localhost:4000/addProduct", {
+        // fetch("http://localhost:4000/dashboard/seller/addProduct", {
         //     method: "POST",
         //     headers: {
         //         "content-type": "application/json"
@@ -86,6 +86,7 @@ const AddProduct = () => {
                 <h2 className='text-3xl'>Add A Product</h2>
             </div>
             <div>
+
                 <form onSubmit={handleSubmit(handleAddProduct)} className="card-body" >
                     <div className='lg:flex md:flex  justify-between'>
                         <div className='lg:w-5/12 md:w-5/12  mx-auto'>
@@ -192,6 +193,7 @@ const AddProduct = () => {
                     </div>
 
                 </form>
+
             </div>
         </div>
     );

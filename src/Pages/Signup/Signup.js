@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { toast } from 'react-hot-toast';
 import { AuthContext } from '../../Context/AuthProvider';
@@ -8,6 +8,11 @@ import { AuthContext } from '../../Context/AuthProvider';
 const Signup = () => {
     const { register, handleSubmit } = useForm();
     const { createUser, updateUser } = useContext(AuthContext)
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/"
+
+
 
     const handleLogin = data => {
         if (data.password.length < 6) {
@@ -25,10 +30,34 @@ const Signup = () => {
                 }
                 updateUser(userInfo)
                     .then(() => {
-                        toast.success('Create user Successfully')
-                        //akhan theke user gulu mongobd te pathaite hobe.
-                        const user = result.user
+                        const user = result.user;
                         console.log(user);
+
+                        const name = user.displayName;
+                        const email = user.email;
+                        const role = data.userRole;
+
+                        const userDetails = {
+                            name: name,
+                            email: email,
+                            role: role
+                        }
+                        fetch("http://localhost:4000/dashboard/admin/allUser", {
+                            method: "POST",
+                            headers: {
+                                "content-type": "application/json"
+                            },
+                            body: JSON.stringify(userDetails)
+                        })
+                            .then(res => res.json())
+                            .then(data => {
+                                if (data.acknowledged) {
+                                    toast.success('Create user Successfully')
+                                    navigate(from, { replace: true })
+                                }
+                            })
+
+
                     })
                     .catch(err => console.error(err))
 
@@ -40,13 +69,21 @@ const Signup = () => {
 
     };
 
+    const handleGoogleLogin = () => {
+        console.log("google login comming soon....");
+        //googin function addedd >>>>
+        // je data pau jabe seta ager kono user kina seta check kore tarpor jodi na hoy thhole monogo te post korbe RRR ager sate match korle post korbe na
+        //chack korbe email diye...
+
+    }
+
     return (
         <div>
             <div className="card flex-shrink-0 lg:w-5/12 md:w-5/12 w-11/12 mx-auto mt-5 mb-10 shadow-2xl bg-base-100">
                 <h2 className='text-center text-3xl font-semibold text-secondary pt-2'>Sign Up Here!</h2>
                 <form onSubmit={handleSubmit(handleLogin)} className="card-body" >
                     <div className="form-control mb-7">
-                        <Link className="btn btn-outline btn-primary  no-animation hover:text-white"> Login With
+                        <Link onClick={handleGoogleLogin} className="btn btn-outline btn-primary  no-animation hover:text-white"> Login With
                             <img className='h-10 w-20 mb-2 ml-2' src="https://media.tenor.com/ZV4jX_quyecAAAAi/google.gif" alt="" />
                         </Link>
                     </div>
@@ -67,6 +104,19 @@ const Signup = () => {
                             {...register("email")}
                             type="email" placeholder="Your email" className="input input-bordered lg:text-lg md:text-lg" required />
                     </div>
+
+                    <div className="form-control">
+                        <label className="label">
+                            <span className="label-text lg:text-lg md:text-lg">
+                                Account Type?</span>
+                        </label>
+                        <select className='select select-bordered border-primary ' {...register("userRole")}>
+                            <option disabled selected>Please Select</option>
+                            <option value="buyer">As a buyer</option>
+                            <option value="seller">As a seller</option>
+                        </select>
+                    </div>
+
                     <div className="form-control">
                         <label className="label">
                             <span className="label-text lg:text-lg md:text-lg">Password</span>
