@@ -16,7 +16,7 @@ const AddProduct = () => {
     const { data: categoriesItems = [] } = useQuery({
         queryKey: "categoriesItems",
         queryFn: async () => {
-            const res = await fetch('http://localhost:4000/categories');
+            const res = await fetch('https://revive-mobile-server.vercel.app/categories');
             const data = await res.json();
             return data;
         }
@@ -62,7 +62,7 @@ const AddProduct = () => {
                         imageUrl: imgUrl
                     }
 
-                    fetch("http://localhost:4000/dashboard/seller/addProduct", {
+                    fetch("https://revive-mobile-server.vercel.app/dashboard/seller/addProduct", {
                         method: "POST",
                         headers: {
                             "content-type": "application/json"

@@ -13,7 +13,7 @@ const DashboardLayout = () => {
 
     const { data: userInfo = {} } = useQuery({
         queryKey: ["userInfo"],
-        queryFn: () => fetch(`http://localhost:4000/allUser/${email}`).then(res => res.json())
+        queryFn: () => fetch(`https://revive-mobile-server.vercel.app/allUser/${email}`).then(res => res.json())
     })
     const { role } = userInfo;
 

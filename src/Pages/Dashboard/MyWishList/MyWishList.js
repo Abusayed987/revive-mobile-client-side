@@ -8,7 +8,7 @@ const MyWishList = () => {
     const { data: wishlistItems = [] } = useQuery({
         queryKey: ["wishlistItems"],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:4000/dashboard/wishlistItems?userEmail=${user?.email}`);
+            const res = await fetch(`https://revive-mobile-server.vercel.app/dashboard/wishlistItems?userEmail=${user?.email}`);
             const data = await res.json();
             return data;
         }

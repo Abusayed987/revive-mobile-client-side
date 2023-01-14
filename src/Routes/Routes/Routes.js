@@ -11,6 +11,7 @@ import MyWishList from "../../Pages/Dashboard/MyWishList/MyWishList";
 import AllAdvertiseItems from "../../Pages/Home/AdvertiseItem/AllAdvertisedItems";
 import CategoryItems from "../../Pages/Home/Categories/CategoryItems/CategoryItems";
 import Home from "../../Pages/Home/Home/Home";
+import Question from "../../Pages/Home/Question/Question";
 import Login from "../../Pages/Login/Login";
 import Signup from "../../Pages/Signup/Signup";
 import AdminRoute from "../AdminRoute/AdminRoute";
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
             {
                 path: "/allAds",
                 element: <AllAdvertiseItems></AllAdvertiseItems>
+            },
+            {
+                path: "/blog",
+                element: <Question></Question>
             }
         ]
     },

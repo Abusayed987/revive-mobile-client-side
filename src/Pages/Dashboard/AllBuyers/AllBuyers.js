@@ -7,7 +7,7 @@ const AllBuyers = () => {
 
     const { data: AllBuyers = [] } = useQuery({
         queryKey: "AllBuyers",
-        queryFn: () => fetch("http://localhost:4000/dashboard/admin/allBuyers").then(res => res.json())
+        queryFn: () => fetch("https://revive-mobile-server.vercel.app/dashboard/admin/allBuyers").then(res => res.json())
     })
     console.log(AllBuyers);
 

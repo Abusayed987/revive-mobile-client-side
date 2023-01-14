@@ -12,7 +12,7 @@ const Navbar = () => {
     const { data: categoriesItems = [] } = useQuery({
         queryKey: "categoriesItems",
         queryFn: async () => {
-            const res = await fetch("http://localhost:4000/categories")
+            const res = await fetch("https://revive-mobile-server.vercel.app/categories")
             const data = await res.json()
             return data;
         }
@@ -50,7 +50,7 @@ const Navbar = () => {
             </ul>
         </li>
         <li>
-            <Link to='' className='lg:text-lg md:text-lg'>Blog</Link>
+            <Link to='/blog' className='lg:text-lg md:text-lg'>Blog</Link>
         </li>
     </>
 

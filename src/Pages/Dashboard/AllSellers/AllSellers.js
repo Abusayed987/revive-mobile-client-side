@@ -6,7 +6,7 @@ import AllSellerRow from './AllSellerRow';
 const AllSellers = () => {
     const { data: AllSellers = [] } = useQuery({
         queryKey: "AllSellers",
-        queryFn: () => fetch("http://localhost:4000/dashboard/admin/allSellers").then(res => res.json())
+        queryFn: () => fetch("https://revive-mobile-server.vercel.app/dashboard/admin/allSellers").then(res => res.json())
     })
     console.log(AllSellers);
 

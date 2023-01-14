@@ -11,7 +11,7 @@ const MyProducts = () => {
 
     const { data: sellerProducts = [], isLoading } = useQuery({
         queryKey: "sellerProducts",
-        queryFn: () => fetch(`http://localhost:4000/sellerProducts?sellerEmail=${email}`)
+        queryFn: () => fetch(`https://revive-mobile-server.vercel.app/sellerProducts?sellerEmail=${email}`)
             .then(res => res.json())
     })
 

@@ -10,16 +10,21 @@ import BookingModal from './BookingModal';
 
 const CategoryItemCard = ({ product }) => {
     const { user } = useContext(AuthContext);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const [addWishlist, setAddWishList] = useState(null);
+    const [addProduct, setAddProduct] = useState(null);
+
+
     const { Condition, categoryId, description, imageUrl, isAdvertised, location, originalPrice, productName, resalePrice, sellerEmail, sellerName, todayDate, usesTime, _id, isVerified, phone } = product;
 
-    const [addWishlist, setAddWishList] = useState(null);
+
     const closeModal = () => {
         setAddWishList(null)
     }
 
     const handleWishlist = product => {
         const { _id, imageUrl, sellerName, productName, resalePrice, usesTime, location, sellerEmail, phone } = product;
+
         const wishlistProduct = {
             userEmail: user.email,
             productId: _id,
@@ -33,7 +38,7 @@ const CategoryItemCard = ({ product }) => {
             phone: phone
         };
 
-        fetch('http://localhost:4000/dashboard/wishlist', {
+        fetch('https://revive-mobile-server.vercel.app/dashboard/wishlist', {
             method: "POST",
             headers: {
                 "content-type": "application/json"
@@ -49,8 +54,53 @@ const CategoryItemCard = ({ product }) => {
 
     }
 
+    const handleBooking = (product, event) => {
+        const { imageUrl, location, productName, resalePrice, sellerEmail, sellerName, usesTime, _id } = product;
+        event.preventDefault()
+        const form = event.target;
+        const buyerName = form.name.value;
+        const buyerPhone = form.buyerPhone.value;
+        const buyerEmail = form.email.value;
+        const metingLocation = form.metingLocation.value;
 
+        const bookingItem = {
+            productId: _id,
+            productName: productName,
+            sellerEmail: sellerEmail,
+            imageUrl: imageUrl,
+            resalePrice,
+            buyerName: buyerName,
+            buyerPhone: buyerPhone,
+            buyerEmail: buyerEmail,
+            metingLocation: metingLocation,
+            usesTime: usesTime,
+            allReadyBook: true,
+            payment: false,
+            sellerLocation: location,
+            sellerName: sellerName,
+            sellerPhone: product?.phone,
+        }
 
+        fetch('https://revive-mobile-server.vercel.app/booking', {
+            method: "POST",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(bookingItem)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.acknowledged) {
+                    toast.success(`${productName} Booking Confirmed`);
+                    navigate('/dashboard/myOrders')
+                    // AI khane up date korte hobe
+                }
+                else {
+                    toast.error(data.message)
+                }
+            })
+
+    }
 
     return (
         <div className='  lg:w-11/12 md:w-11/12'>
@@ -125,7 +175,7 @@ const CategoryItemCard = ({ product }) => {
                         </div>
                         {user?.uid ?
                             <div>
-                                <label htmlFor="booking-modal" className=" btn btn-primary btn-xs">Book Now</label>
+                                <label onClick={() => setAddProduct(product)} htmlFor="booking-modal" className=" btn btn-primary btn-xs">Book Now</label>
                             </div>
                             :
                             <div>
@@ -161,9 +211,11 @@ const CategoryItemCard = ({ product }) => {
                     successBtnName={`Added`}
                 > </ConformationModal>
             }
-            {
+            {addProduct &&
                 <BookingModal
-                    product={product}
+                    successAction={handleBooking}
+                    modalData={addProduct}
+                    user={user}
                 ></BookingModal>
             }
         </div >

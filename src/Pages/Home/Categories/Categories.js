@@ -6,7 +6,7 @@ const Categories = () => {
     const { data: allCategories = [], isLoading } = useQuery({
         queryKey: "categoriesItems",
         queryFn: async () => {
-            const res = await fetch('http://localhost:4000/categories');
+            const res = await fetch('https://revive-mobile-server.vercel.app/categories');
             const data = await res.json();
             return data;
         }

@@ -42,7 +42,7 @@ const Signup = () => {
                             email: email,
                             role: role
                         }
-                        fetch("http://localhost:4000/dashboard/admin/allUser", {
+                        fetch("https://revive-mobile-server.vercel.app/dashboard/admin/allUser", {
                             method: "POST",
                             headers: {
                                 "content-type": "application/json"

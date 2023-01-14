@@ -7,7 +7,7 @@ const AdvertiseItems = () => {
 
     const { data: advertisedProduct = [], isLoading } = useQuery({
         queryKey: ["advertisedProduct"],
-        queryFn: () => fetch("http://localhost:4000/advertisedHomeProduct")
+        queryFn: () => fetch("https://revive-mobile-server.vercel.app/advertisedHomeProduct")
             .then(res => res.json())
     })
     if (isLoading) {
