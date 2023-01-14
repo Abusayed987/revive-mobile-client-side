@@ -1,16 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Await, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { FaCaretDown, FaSignInAlt, FaSignOutAlt } from 'react-icons/fa';
 import { AuthContext } from '../../../Context/AuthProvider';
 import { toast } from 'react-hot-toast';
 import { useQuery } from 'react-query';
-import { async } from '@firebase/util';
+
 
 const Navbar = () => {
     const { user, logout } = useContext(AuthContext)
-    // const [reFresh, setRefresh] = useState(false)
 
-    const { data: categoriesItems = [], isFetching } = useQuery({
+    const { data: categoriesItems = [] } = useQuery({
         queryKey: "categoriesItems",
         queryFn: async () => {
             const res = await fetch("http://localhost:4000/categories")
@@ -18,10 +17,6 @@ const Navbar = () => {
             return data;
         }
     })
-
-    if (isFetching) {
-        // console.log(isFetching);
-    }
 
     const handleLogout = () => {
         logout()
@@ -129,6 +124,9 @@ const Navbar = () => {
                                                 <input type="file"
                                                     className='w-52  text-secondary  mb-4 border'
                                                 />
+                                                <div className='text-center mb-2'>
+                                                    <button className="badge  badge-primary badge-outline ">Submit</button>
+                                                </div>
                                             </>
                                         }
                                     </div>
