@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../Context/AuthProvider';
 
-const useAdmin = email => {
-    const [isAdmin, setIsAdmin] = useState(null);
-    const [isAdminLoading, setIsAdminLoading] = useState(true);
+const useSeller = email => {
+    const [isSeller, setIsSeller] = useState(null);
+    const [isSellerLoading, setIsSellerLoading] = useState(true);
     const { logout } = useContext(AuthContext)
 
     useEffect(() => {
@@ -11,9 +11,9 @@ const useAdmin = email => {
             fetch(`http://localhost:4000/allUser/${email}`)
                 .then(res => res.json())
                 .then(data => {
-                    if (data.role === "admin") {
-                        setIsAdmin(data.role)
-                        setIsAdminLoading(false)
+                    if (data.role === "seller") {
+                        setIsSeller(data.role)
+                        setIsSellerLoading(false)
                     }
                     else {
                         logout()
@@ -22,8 +22,8 @@ const useAdmin = email => {
         }
     }, [email, logout])
 
-    return [isAdmin, isAdminLoading]
+    return [isSeller, isSellerLoading]
 
 };
 
-export default useAdmin;
+export default useSeller;
