@@ -57,6 +57,7 @@ const AddProduct = () => {
                         location: data.location,
                         description: data.description,
                         Condition: data.condition,
+                        phone: data.phone,
                         categoryId: categoriesItems.find(ctg => ctg.name === data.category)._id,
                         imageUrl: imgUrl
                     }
@@ -207,6 +208,15 @@ const AddProduct = () => {
                                         Product Photo</span>
                                 </label>
                                 <input type="file"  {...register("productPhoto")} className="file-input file-input-bordered file-input-primary w-full max-w-xs" required />
+                            </div>
+
+                            <div className="form-control lg:mt-4 md:mt-4">
+                                <label className="label">
+                                    <span className="label-text lg:text-lg md:text-lg"> Phone Number:</span>
+                                </label>
+                                <input
+                                    {...register("phone")}
+                                    type="text" placeholder="Your Phone Number" className="input input-bordered lg:text-lg md:text-lg border-primary " required />
                             </div>
 
                         </div>

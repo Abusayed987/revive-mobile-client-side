@@ -5,7 +5,7 @@ import { AuthContext } from '../../../../Context/AuthProvider';
 
 const CategoryItemCard = ({ product }) => {
     const { user } = useContext(AuthContext)
-    const { Condition, categoryId, description, imageUrl, isAdvertised, location, originalPrice, productName, resalePrice, sellerEmail, sellerName, todayDate, usesTime, _id, isVerified } = product;
+    const { Condition, categoryId, description, imageUrl, isAdvertised, location, originalPrice, productName, resalePrice, sellerEmail, sellerName, todayDate, usesTime, _id, isVerified, phone } = product;
 
     return (
         <div className='  lg:w-11/12 md:w-11/12'>
@@ -19,7 +19,7 @@ const CategoryItemCard = ({ product }) => {
                         <img src={`${imageUrl}`} alt="img" className=" rounded-md lg:w-36 md:w-36 h-36 " />
                     </figure>
                 </div>
-                <div className=" lg:h-52 md:h-52 p-2 lg:w-full md:max-w-screen-md">
+                <div className=" p-2 lg:w-full md:max-w-screen-md">
 
                     <div className='lg:flex md:flex items-center justify-between'>
                         <h2 className=" font-semibold text-xl">{productName}
@@ -36,8 +36,8 @@ const CategoryItemCard = ({ product }) => {
                     <div className='border  lg:w-full md:w-full w-64'></div>
 
                     <div className='lg:flex md:flex items-center justify-between mt-1'>
-                        <p className='text-secondary rounded  font-semibold'>Seller Price: ৳{resalePrice}</p>
-                        <p className=' lg:ml-2 text-secondary'>Market price: <del>৳{originalPrice}</del></p>
+                        <p className='text-red-500 text-lg rounded  font-semibold'>Seller Price: ৳{resalePrice}</p>
+                        <p className=' lg:ml-2 text-red-500'>Market price: <del>৳{originalPrice}</del></p>
                     </div>
 
                     <div className='lg:flex md:flex items-center justify-between mt-2'>
@@ -57,8 +57,11 @@ const CategoryItemCard = ({ product }) => {
                                 </div>
                             </div>
                             <div className=' ml-2 flex items-center'>
-                                <h3 className='text-lg '>{sellerName}</h3>
-                                {/* */}
+                                <div className=''>
+                                    <h3 className='text-lg '>{sellerName}</h3>
+                                    <h3 className=' text-sm'>+88{phone}</h3>
+                                </div>
+
                                 <div className={`${(isVerified) ? "tooltip tooltip-top" : " "}`} data-tip="Verified" >
                                     {(isVerified) &&
                                         <button className=""><FaCheckCircle className='ml-1 text-green-500 text-sm' ></FaCheckCircle></button>
@@ -79,7 +82,11 @@ const CategoryItemCard = ({ product }) => {
                             <Link className='btn btn-primary btn-xs'>Book Now</Link>
                         </div>
                     </div>
-                    <div className=''>
+
+                    <div className='lg:flex md:flex items-center justify-between mt-2'>
+                        <button className='hover:animate-bounce tooltip tooltip-right' data-tip="add to Wishlist">
+                            <img src="https://img.alicdn.com/imgextra/i4/O1CN01AIpdkU1r1ZEKDP8LG_!!6000000005571-55-tps-17-16.svg" alt="" />
+                        </button>
                         <h3 className='text-end text-gray-500 text-sm mt-2'>Post: {todayDate}</h3>
                     </div>
                 </div>

@@ -42,9 +42,9 @@ const MyProductsRow = ({ product, index }) => {
 
             <td>
                 {(product?.payment) ?
-                    <span className='bg-success px-2 py-1 rounded-md cursor-auto'>Paid</span>
+                    <span className='bg-success px-2 py-1 rounded-md cursor-auto'> Sold</span>
                     :
-                    <span className=' bg-warning px-2 py-1 rounded-md ' >Unpaid</span>
+                    <span className=' bg-warning px-2 py-1 rounded-md ' >Available</span>
                 }
             </td>
 
