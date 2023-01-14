@@ -5,6 +5,7 @@ import { useQuery } from 'react-query';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../../Context/AuthProvider';
 import ConformationModal from '../../../Shared/Modal/ConformationModal';
+import BookingModal from './BookingModal';
 
 
 const CategoryItemCard = ({ product }) => {
@@ -122,19 +123,30 @@ const CategoryItemCard = ({ product }) => {
                         <div className='mt-2'>
                             <p title={`${description}`} className='text-sm'>{(description).slice(0, 30)}...</p>
                         </div>
-                        <div className='mt-2'>
-                            <Link className='btn btn-primary btn-xs'>Book Now</Link>
-                        </div>
+                        {user?.uid ?
+                            <div>
+                                <label htmlFor="booking-modal" className=" btn btn-primary btn-xs">Book Now</label>
+                            </div>
+                            :
+                            <div>
+                                <Link to="/login" className='btn btn-primary btn-xs'>Book Now</Link>
+                            </div>
+                        }
                     </div>
 
                     <div className='lg:flex md:flex items-center justify-between mt-2'>
-                        {/* <button onClick={handleWishlist} className=' tooltip tooltip-right' data-tip="add to Wishlist">
-                            
-                        </button> */}
+                        {user?.uid ?
+                            <label onClick={() => setAddWishList(product)} htmlFor="conformation-modal" className=' tooltip tooltip-right' data-tip="add to Wishlist">
+                                <img src="https://img.alicdn.com/imgextra/i4/O1CN01AIpdkU1r1ZEKDP8LG_!!6000000005571-55-tps-17-16.svg" alt="" />
+                            </label>
+                            :
+                            <div className=' tooltip tooltip-right' data-tip="add to Wishlist" >
+                                <Link to="/login">
+                                    <img src="https://img.alicdn.com/imgextra/i4/O1CN01AIpdkU1r1ZEKDP8LG_!!6000000005571-55-tps-17-16.svg" alt="" />
+                                </Link>
+                            </div>
+                        }
 
-                        <label onClick={() => setAddWishList(product)} htmlFor="conformation-modal" className=' tooltip tooltip-right' data-tip="add to Wishlist">
-                            <img src="https://img.alicdn.com/imgextra/i4/O1CN01AIpdkU1r1ZEKDP8LG_!!6000000005571-55-tps-17-16.svg" alt="" />
-                        </label>
                         <h3 className='text-end text-gray-500 text-sm mt-2'>Post: {todayDate}</h3>
                     </div>
                 </div>
@@ -148,6 +160,11 @@ const CategoryItemCard = ({ product }) => {
                     modalData={addWishlist}
                     successBtnName={`Added`}
                 > </ConformationModal>
+            }
+            {
+                <BookingModal
+                    product={product}
+                ></BookingModal>
             }
         </div >
     );
