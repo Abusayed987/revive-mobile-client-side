@@ -1,14 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
+import ConformationModal from '../../Shared/Modal/ConformationModal';
 import AllSellerRow from './AllSellerRow';
 
 const AllSellers = () => {
+    const [deleteSeller, setDeleteSeller] = useState(null);
+
     const { data: AllSellers = [] } = useQuery({
         queryKey: "AllSellers",
         queryFn: () => fetch("https://revive-mobile-server.vercel.app/dashboard/admin/allSellers").then(res => res.json())
     })
-    console.log(AllSellers);
+    const closeModal = () => {
+        setDeleteSeller(null)
+    }
+
+    const handleSellerDelete = () => {
+
+    }
+
 
     return (
         <div className='my-4'>
@@ -24,7 +34,7 @@ const AllSellers = () => {
                                 <th></th>
                                 <th>Name</th>
                                 <th>sellerEmail</th>
-                                <th>Status</th>
+                                <th>Verified</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -34,11 +44,23 @@ const AllSellers = () => {
                                     key={seller._id}
                                     i={i}
                                     seller={seller}
+                                    setDeleteSeller={setDeleteSeller}
+                                    deleteSeller={deleteSeller}
                                 ></AllSellerRow>)
                             }
                         </tbody>
                     </table>
                 </div>
+                {deleteSeller &&
+                    <ConformationModal
+                        tittle={` Are you sure that, Seller is delete now`}
+                        message={`This seller is not recovery, it's permanently deleted!`}
+                        closeModal={closeModal}
+                        successAction={handleSellerDelete}
+                        modalData={deleteSeller}
+                        successBtnName={`Delete`}
+                    ></ConformationModal>
+                }
             </div>
         </div>
     );

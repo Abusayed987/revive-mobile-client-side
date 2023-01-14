@@ -9,7 +9,7 @@ const AllBuyers = () => {
         queryKey: "AllBuyers",
         queryFn: () => fetch("https://revive-mobile-server.vercel.app/dashboard/admin/allBuyers").then(res => res.json())
     })
-    console.log(AllBuyers);
+
 
     return (
         <div>

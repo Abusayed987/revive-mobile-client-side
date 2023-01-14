@@ -34,7 +34,7 @@ const DashboardLayout = () => {
                 </div>
                 <div className="drawer-side lg:shadow-xl">
                     <label htmlFor="revive-drawer" className="drawer-overlay"></label>
-                    <ul className="menu p-4 w-52 bg-base-100 text-base-content">
+                    <ul className="menu p-4 w-52  text-base-content">
                         {/* as a buyer  */}
                         {(role === "buyer") &&
                             <>
