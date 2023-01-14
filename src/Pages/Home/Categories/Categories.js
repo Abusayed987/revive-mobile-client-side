@@ -3,7 +3,7 @@ import { useQuery } from 'react-query';
 import Category from './Category';
 
 const Categories = () => {
-    const { data: allCategories = [], isLoading, refetch } = useQuery({
+    const { data: allCategories = [], isLoading } = useQuery({
         queryKey: "categoriesItems",
         queryFn: async () => {
             const res = await fetch('http://localhost:4000/categories');
@@ -25,7 +25,6 @@ const Categories = () => {
                     allCategories.map(category => <Category
                         key={category._id}
                         category={category}
-                        refetch={refetch}
                     ></Category>)
                 }
             </div>

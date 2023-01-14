@@ -10,18 +10,18 @@ const Navbar = () => {
     const { user, logout } = useContext(AuthContext)
     // const [reFresh, setRefresh] = useState(false)
 
-    const { data: categoriesItems = [], refetch } = useQuery({
+    const { data: categoriesItems = [], isFetching } = useQuery({
         queryKey: "categoriesItems",
         queryFn: async () => {
             const res = await fetch("http://localhost:4000/categories")
             const data = await res.json()
-
             return data;
         }
     })
-    // fetch('http://localhost:4000/categories')
-    // .then(res => res.json())
 
+    if (isFetching) {
+        // console.log(isFetching);
+    }
 
     const handleLogout = () => {
         logout()
@@ -49,7 +49,7 @@ const Navbar = () => {
             <ul className="p-2 shadow-md bg-white">
                 {
                     categoriesItems.map(category => <li key={category._id}>
-                        <Link onClick={refetch} to={`categories/${category._id}`}>{category.name}</Link>
+                        <Link to={`categories/${category._id}`}>{category.name}</Link>
                     </li>)
                 }
             </ul>
