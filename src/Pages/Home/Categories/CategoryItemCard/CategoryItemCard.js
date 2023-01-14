@@ -1,11 +1,54 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { FaCheck, FaCheckCircle } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { useQuery } from 'react-query';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../../Context/AuthProvider';
+import ConformationModal from '../../../Shared/Modal/ConformationModal';
+
 
 const CategoryItemCard = ({ product }) => {
-    const { user } = useContext(AuthContext)
+    const { user } = useContext(AuthContext);
+    const navigate = useNavigate()
     const { Condition, categoryId, description, imageUrl, isAdvertised, location, originalPrice, productName, resalePrice, sellerEmail, sellerName, todayDate, usesTime, _id, isVerified, phone } = product;
+
+    const [addWishlist, setAddWishList] = useState(null);
+    const closeModal = () => {
+        setAddWishList(null)
+    }
+
+    const handleWishlist = product => {
+        const { _id, imageUrl, sellerName, productName, resalePrice, usesTime, location } = product;
+
+        const wishlistProduct = {
+            userEmail: user.email,
+            productId: _id,
+            imageUrl: imageUrl,
+            sellerName: sellerName,
+            productName: productName,
+            resalePrice: resalePrice,
+            usesTime: usesTime,
+            location: location
+        };
+
+        fetch('http://localhost:4000/dashboard/wishlist', {
+            method: "POST",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(wishlistProduct)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                toast.success("Successfully Added to Wishlist")
+                navigate('/dashboard/myWishlist')
+            })
+
+    }
+
+
+
 
     return (
         <div className='  lg:w-11/12 md:w-11/12'>
@@ -84,13 +127,27 @@ const CategoryItemCard = ({ product }) => {
                     </div>
 
                     <div className='lg:flex md:flex items-center justify-between mt-2'>
-                        <button className='hover:animate-bounce tooltip tooltip-right' data-tip="add to Wishlist">
+                        {/* <button onClick={handleWishlist} className=' tooltip tooltip-right' data-tip="add to Wishlist">
+                            
+                        </button> */}
+
+                        <label onClick={() => setAddWishList(product)} htmlFor="conformation-modal" className=' tooltip tooltip-right' data-tip="add to Wishlist">
                             <img src="https://img.alicdn.com/imgextra/i4/O1CN01AIpdkU1r1ZEKDP8LG_!!6000000005571-55-tps-17-16.svg" alt="" />
-                        </button>
+                        </label>
                         <h3 className='text-end text-gray-500 text-sm mt-2'>Post: {todayDate}</h3>
                     </div>
                 </div>
             </div>
+            {addWishlist &&
+                <ConformationModal
+                    tittle={` Add to Your Wishlist ?`}
+                    message={``}
+                    closeModal={closeModal}
+                    successAction={handleWishlist}
+                    modalData={addWishlist}
+                    successBtnName={`Added`}
+                > </ConformationModal>
+            }
         </div >
     );
 };

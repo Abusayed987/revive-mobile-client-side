@@ -15,7 +15,7 @@ const CategoryItems = () => {
             return data;
         }
     })
-    console.log(allProducts);
+    // console.log(allProducts);
 
     if (isLoading) {
         return <progress className="progress w-full h-2 progress-primary"></progress>
