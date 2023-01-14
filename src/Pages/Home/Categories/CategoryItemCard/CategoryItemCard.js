@@ -18,8 +18,7 @@ const CategoryItemCard = ({ product }) => {
     }
 
     const handleWishlist = product => {
-        const { _id, imageUrl, sellerName, productName, resalePrice, usesTime, location } = product;
-
+        const { _id, imageUrl, sellerName, productName, resalePrice, usesTime, location, sellerEmail, phone } = product;
         const wishlistProduct = {
             userEmail: user.email,
             productId: _id,
@@ -28,7 +27,9 @@ const CategoryItemCard = ({ product }) => {
             productName: productName,
             resalePrice: resalePrice,
             usesTime: usesTime,
-            location: location
+            location: location,
+            sellerEmail: sellerEmail,
+            phone: phone
         };
 
         fetch('http://localhost:4000/dashboard/wishlist', {
