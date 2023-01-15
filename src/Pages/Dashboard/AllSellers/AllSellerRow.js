@@ -1,6 +1,6 @@
 import React from 'react';
 
-const AllSellerRow = ({ seller, i, setDeleteSeller, deleteSeller }) => {
+const AllSellerRow = ({ seller, i, setDeleteSeller }) => {
 
     return (
         <tr className="hover">

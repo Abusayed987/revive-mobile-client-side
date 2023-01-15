@@ -107,7 +107,7 @@ const CategoryItemCard = ({ product }) => {
 
             <div className="rounded-lg border hover:shadow-2xl hover:border-primary lg:flex md:flex  items-center md:justify-evenly ">
                 <div className=' mt-0'>
-                    {(isAdvertised) &&
+                    {(isAdvertised === "true") &&
                         <span className="indicator-item  badge badge-primary indicator-bottom indicator-end  rounded-md  text-white">Ads</span>
                     }
                     <figure className="p-2">
@@ -186,13 +186,13 @@ const CategoryItemCard = ({ product }) => {
 
                     <div className='lg:flex md:flex items-center justify-between mt-2'>
                         {user?.uid ?
-                            <label onClick={() => setAddWishList(product)} htmlFor="conformation-modal" className=' tooltip tooltip-right' data-tip="add to Wishlist">
-                                <img src="https://img.alicdn.com/imgextra/i4/O1CN01AIpdkU1r1ZEKDP8LG_!!6000000005571-55-tps-17-16.svg" alt="" />
+                            <label onClick={() => setAddWishList(product)} htmlFor="conformation-modal" className=' tooltip tooltip-right flex border border-primary p-1 rounded-sm items-center' data-tip="add to Wishlist">
+                                <img className='h-4' src="https://img.alicdn.com/imgextra/i4/O1CN01AIpdkU1r1ZEKDP8LG_!!6000000005571-55-tps-17-16.svg" alt="" /> add wishlist
                             </label>
                             :
                             <div className=' tooltip tooltip-right' data-tip="add to Wishlist" >
-                                <Link to="/login">
-                                    <img src="https://img.alicdn.com/imgextra/i4/O1CN01AIpdkU1r1ZEKDP8LG_!!6000000005571-55-tps-17-16.svg" alt="" />
+                                <Link to="/login" className='flex border border-primary p-1 rounded-sm items-center'>
+                                    <img className='h-4' src="https://img.alicdn.com/imgextra/i4/O1CN01AIpdkU1r1ZEKDP8LG_!!6000000005571-55-tps-17-16.svg" alt="" /> add wishlist
                                 </Link>
                             </div>
                         }

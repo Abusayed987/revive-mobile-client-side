@@ -17,6 +17,7 @@ import Signup from "../../Pages/Signup/Signup";
 import AdminRoute from "../AdminRoute/AdminRoute";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import SellerRoute from "../SellerRoute/SellerRoute";
+import NotFound from "./404Route/NotFound";
 
 const router = createBrowserRouter([
     {
@@ -82,6 +83,10 @@ const router = createBrowserRouter([
                 element: <AdminRoute><AllSellers></AllSellers></AdminRoute>
             },
         ]
+    },
+    {
+        path: "*",
+        element: <NotFound></NotFound>
     }
 ])
 export default router

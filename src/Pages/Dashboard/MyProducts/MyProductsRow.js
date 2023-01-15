@@ -1,7 +1,7 @@
 import React from 'react';
 import { FaBan, FaCheckCircle } from 'react-icons/fa';
 
-const MyProductsRow = ({ product, index }) => {
+const MyProductsRow = ({ product, index, setDeleteMyProduct }) => {
     const { imageUrl, originalPrice, productName, resalePrice, _id, location, isAdvertised } = product;
     return (
         <tr className="hover">
@@ -23,8 +23,8 @@ const MyProductsRow = ({ product, index }) => {
                 </div>
             </td>
             <td>
-                {(isAdvertised) ?
-                    <div className={`${(isAdvertised) ? "tooltip tooltip-top" : " "}`} data-tip="Advertised Item" >
+                {(isAdvertised === "true") ?
+                    <div className={`${(isAdvertised === "true") ? "tooltip tooltip-top" : " "}`} data-tip="Advertised Item" >
                         <button className=" ml-7"><FaCheckCircle className='ml-1 text-green-500 text-sm' ></FaCheckCircle></button>
                     </div>
                     :
@@ -49,7 +49,12 @@ const MyProductsRow = ({ product, index }) => {
             </td>
 
             <th>
-                <button className="btn btn-error btn-outline btn-xs">Delete</button>
+                <label
+                    onClick={() => { setDeleteMyProduct(product) }}
+                    htmlFor="conformation-modal"
+                    className="btn btn-xs btn-error btn-outline">
+                    Delete
+                </label>
             </th>
 
         </tr>

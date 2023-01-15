@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
 import ConformationModal from '../../Shared/Modal/ConformationModal';
@@ -7,7 +8,7 @@ import AllSellerRow from './AllSellerRow';
 const AllSellers = () => {
     const [deleteSeller, setDeleteSeller] = useState(null);
 
-    const { data: AllSellers = [] } = useQuery({
+    const { data: AllSellers = [], refetch } = useQuery({
         queryKey: "AllSellers",
         queryFn: () => fetch("https://revive-mobile-server.vercel.app/dashboard/admin/allSellers").then(res => res.json())
     })
@@ -15,8 +16,20 @@ const AllSellers = () => {
         setDeleteSeller(null)
     }
 
-    const handleSellerDelete = () => {
-
+    const handleSellerDelete = (deleteSeller) => {
+        console.log(deleteSeller._id);
+        fetch(`http://localhost:4000/seller/${deleteSeller._id}`, {
+            method: "DELETE",
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.deletedCount) {
+                    toast.success("Seller Deleted Successfully")
+                    refetch()
+                }
+            })
+            .catch(err => console.error(err))
     }
 
 
@@ -45,7 +58,6 @@ const AllSellers = () => {
                                     i={i}
                                     seller={seller}
                                     setDeleteSeller={setDeleteSeller}
-                                    deleteSeller={deleteSeller}
                                 ></AllSellerRow>)
                             }
                         </tbody>

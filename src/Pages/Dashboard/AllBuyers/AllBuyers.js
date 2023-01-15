@@ -1,14 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
+import ConformationModal from '../../Shared/Modal/ConformationModal';
 import AllBuyersRow from './AllBuyersRow';
 
 const AllBuyers = () => {
+    const [deleteBuyer, setDeleteBuyer] = useState(null);
 
-    const { data: AllBuyers = [] } = useQuery({
+    const { data: AllBuyers = [], refetch } = useQuery({
         queryKey: "AllBuyers",
         queryFn: () => fetch("https://revive-mobile-server.vercel.app/dashboard/admin/allBuyers").then(res => res.json())
     })
+
+    const closeModal = () => {
+        setDeleteBuyer(null)
+    }
+
+    const handleBuyerDelete = (deleteBuyer) => {
+        fetch(`http://localhost:4000/buyer/${deleteBuyer._id}`, {
+            method: "DELETE",
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.deletedCount) {
+                    toast.success("Buyer Deleted Successfully")
+                    refetch()
+                }
+            })
+            .catch(err => console.error(err))
+    }
 
 
     return (
@@ -35,11 +56,22 @@ const AllBuyers = () => {
                                         key={buyer._id}
                                         i={i}
                                         buyer={buyer}
+                                        setDeleteBuyer={setDeleteBuyer}
                                     ></AllBuyersRow>)
                                 }
                             </tbody>
                         </table>
                     </div>
+                    {deleteBuyer &&
+                        <ConformationModal
+                            tittle={` Are you sure that, Buyer is delete now`}
+                            message={`This buyer is not recovery, it's permanently deleted!`}
+                            closeModal={closeModal}
+                            successAction={handleBuyerDelete}
+                            modalData={deleteBuyer}
+                            successBtnName={`Delete`}
+                        ></ConformationModal>
+                    }
                 </div>
             </div>
         </div>

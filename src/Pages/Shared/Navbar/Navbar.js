@@ -93,7 +93,7 @@ const Navbar = () => {
                                 <>
                                     {user?.photoURL ?
                                         <div className="w-10 rounded-full">
-                                            <img src="https://placeimg.com/80/80/people" alt='' />
+                                            <img src={`${user.photoURL}`} alt='' />
                                         </div>
                                         :
                                         <div className="w-10 rounded-full">
@@ -111,11 +111,13 @@ const Navbar = () => {
                                         </h2>
                                     }
                                     {
-                                        user?.photoURL ||
                                         <span className=' divider w-11/12 mx-auto my-0'></span>
                                     }
                                     <div className='p-1' >
-                                        {user?.photoURL ||
+                                        {user?.photoURL ?
+                                            <>
+                                            </>
+                                            :
                                             <>
                                                 <p className=' text-secondary text-center  mb-4'>
                                                     Update photo

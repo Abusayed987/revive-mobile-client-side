@@ -173,7 +173,6 @@ const AddProduct = () => {
                                         Do you want to advertise?</span>
                                 </label>
                                 <select className=' select select-bordered border-primary ' {...register("isAdvertised")}>
-
                                     <option value="true">Yes</option>
                                     <option value="false">No</option>
                                 </select>

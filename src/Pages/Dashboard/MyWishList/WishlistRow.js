@@ -1,9 +1,9 @@
 import React from 'react';
 
-const WishlistRow = ({ item, i }) => {
+const WishlistRow = ({ item, i, setDeleteWishItem }) => {
     const { imageUrl, productName, location, resalePrice, usesTime, sellerEmail,
     } = item;
-    console.log(item);
+
     return (
         <tr className="hover">
             <th>{i + 1}</th>
@@ -25,12 +25,18 @@ const WishlistRow = ({ item, i }) => {
                     </div>
                 </div>
             </td>
+            <th>{usesTime}</th>
             <th>{sellerEmail}</th>
             <th>
                 <p>{resalePrice} Tk</p>
             </th>
             <th>
-                <button className="btn btn-error btn-outline btn-xs">Delete</button>
+                <label
+                    onClick={() => { setDeleteWishItem(item) }}
+                    htmlFor="conformation-modal"
+                    className="btn btn-xs btn-error btn-outline">
+                    Delete
+                </label>
             </th>
 
         </tr>
