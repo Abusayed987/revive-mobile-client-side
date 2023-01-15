@@ -15,8 +15,7 @@ const CategoryItemCard = ({ product }) => {
     const [addProduct, setAddProduct] = useState(null);
 
 
-    const { Condition, categoryId, description, imageUrl, isAdvertised, location, originalPrice, productName, resalePrice, sellerEmail, sellerName, todayDate, usesTime, _id, isVerified, phone } = product;
-
+    const { Condition, categoryId, description, imageUrl, isAdvertised, location, originalPrice, productName, resalePrice, sellerEmail, sellerName, todayDate, usesTime, _id, isVerified, phone, sellerPhoto } = product;
 
     const closeModal = () => {
         setAddWishList(null)
@@ -139,9 +138,9 @@ const CategoryItemCard = ({ product }) => {
                         <div className=' flex items-center'>
                             <div className="avatar">
                                 <div className="w-10 rounded-full " >
-                                    {user?.photoURL ?
+                                    {product?.sellerPhoto ?
                                         <div className="w-10 rounded-full" >
-                                            <img src={user?.photoURL} alt='' />
+                                            <img src={product?.sellerPhoto} alt='' />
                                         </div>
                                         :
                                         <div className="w-10 rounded-full">
@@ -151,18 +150,21 @@ const CategoryItemCard = ({ product }) => {
                                     }
                                 </div>
                             </div>
-                            <div className=' ml-2 flex items-center'>
-                                <div className=''>
-                                    <h3 className='text-lg '>{sellerName}</h3>
-                                    <h3 className=' text-sm'>+88{phone}</h3>
-                                </div>
 
-                                <div className={`${(isVerified) ? "tooltip tooltip-top" : " "}`} data-tip="Verified" >
-                                    {(isVerified) &&
-                                        <button className=""><FaCheckCircle className='ml-1 text-green-500 text-sm' ></FaCheckCircle></button>
-                                    }
+                            <div className=' ml-2 '>
+                                <div className={`${(isVerified === "true") ? "tooltip tooltip-top ml-2 flex items-center" : ""}`} data-tip="Verified Seller" >
+                                    <h3 className='text-lg '>{sellerName}</h3>
+                                    <div className='ml-2'>
+                                        {(isVerified === "true") &&
+                                            <button className=""><FaCheckCircle className=' mt-1 text-green-500 text-sm' ></FaCheckCircle></button>
+                                        }
+                                    </div>
                                 </div>
+                                <h3 className=' text-sm'>+88{phone}</h3>
+
+
                             </div>
+
                         </div>
                         <div>
                             <h2>Condition: {Condition}</h2>
@@ -170,7 +172,7 @@ const CategoryItemCard = ({ product }) => {
                     </div>
 
                     <div className="lg:flex md:flex items-center justify-between mt-2">
-                        <div className='mt-2'>
+                        <div className='mt-2' data-tip="">
                             <p title={`${description}`} className='text-sm'>{(description).slice(0, 30)}...</p>
                         </div>
                         {user?.uid ?

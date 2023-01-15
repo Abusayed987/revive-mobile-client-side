@@ -12,7 +12,6 @@ const AddProduct = () => {
     const [loading, setLoading] = useState(false)
     const imageHostKey = process.env.REACT_APP_imgbbKey;
 
-
     const { data: categoriesItems = [] } = useQuery({
         queryKey: "categoriesItems",
         queryFn: async () => {
@@ -22,6 +21,12 @@ const AddProduct = () => {
         }
     })
 
+    const { data: singleSeller = {}, refetch } = useQuery({
+        queryKey: "singleSeller",
+        queryFn: () => fetch(`http://localhost:4000/dashboard/admin/singleSeller/${user.email}`).then(res => res.json())
+    })
+
+    console.log(singleSeller);
     const handleAddProduct = data => {
         const date = new Date();
         const day = date.getDate();
@@ -49,6 +54,8 @@ const AddProduct = () => {
                         todayDate: currentDate,
                         sellerName: data.sellerName,
                         sellerEmail: user.email,
+                        isVerified: singleSeller.isVerified,
+                        sellerPhoto: user.photoURL,
                         productName: data.productName,
                         originalPrice: data.originalPrice,
                         resalePrice: data.resalePrice,

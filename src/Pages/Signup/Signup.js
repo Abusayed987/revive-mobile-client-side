@@ -12,13 +12,9 @@ const Signup = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || "/"
-    const [googleUser, setGoogleUser] = useState(null)
 
-    const { data: getUser, isLoading } = useQuery({
-        queryKey: ["getUser", googleUser],
-        queryFn: () => fetch(`https://revive-mobile-server.vercel.app/allUser/${googleUser}`)
-            .then(res => res.json())
-    })
+
+
 
     const handleSignUp = data => {
         if (data.password.length < 6) {
@@ -46,7 +42,8 @@ const Signup = () => {
                         const userDetails = {
                             name: name,
                             email: email,
-                            role: role
+                            role: role,
+                            isVerified: "false",
                         }
                         fetch("https://revive-mobile-server.vercel.app/dashboard/admin/allUser", {
                             method: "POST",
@@ -79,35 +76,29 @@ const Signup = () => {
         googleLogin()
             .then((result) => {
                 const user = result.user;
-                setGoogleUser(user.email);
-                if (isLoading) {
-                    return;
+
+                const userDetails = {
+                    name: user.displayName,
+                    email: user.email,
+                    role: "buyer",
+                    isVerified: "false"
                 }
-
-                console.log("afterLading", googleUser, getUser);
-                if (!getUser) {
-                    const userDetails = {
-                        name: user.displayName,
-                        email: user.email,
-                        role: "buyer"
-                    }
-
-                    fetch("https://revive-mobile-server.vercel.app/dashboard/admin/allUser", {
-                        method: "POST",
-                        headers: {
-                            "content-type": "application/json"
-                        },
-                        body: JSON.stringify(userDetails)
+                fetch("https://revive-mobile-server.vercel.app/dashboard/admin/allUser", {
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json"
+                    },
+                    body: JSON.stringify(userDetails)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data);
+                        toast.success('Successfully  SignIn')
+                        navigate(from, { replace: true })
                     })
-                        .then(res => res.json())
-                        .then(data => {
-
-                        })
-                }
 
             }).catch((error) => console.error(error));
-        toast.success('Successfully  SignIn')
-        navigate(from, { replace: true })
+
 
     }
 

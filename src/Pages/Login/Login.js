@@ -13,13 +13,6 @@ const Login = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || "/"
-    const [googleUser, setGoogleUser] = useState(null)
-
-    const { data: getUser, isLoading } = useQuery({
-        queryKey: ["getUser", googleUser],
-        queryFn: () => fetch(`https://revive-mobile-server.vercel.app/allUser/${googleUser}`)
-            .then(res => res.json())
-    })
 
     const handleLogin = data => {
         loginWithPass(data.email, data.password)
@@ -36,37 +29,29 @@ const Login = () => {
         googleLogin()
             .then((result) => {
                 const user = result.user;
-                setGoogleUser(user.email);
-                if (isLoading) {
-                    return;
+
+                const userDetails = {
+                    name: user.displayName,
+                    email: user.email,
+                    role: "buyer"
                 }
-
-                console.log("afterLading", googleUser, getUser);
-                if (!getUser) {
-                    const userDetails = {
-                        name: user.displayName,
-                        email: user.email,
-                        role: "buyer"
-                    }
-
-                    fetch("https://revive-mobile-server.vercel.app/dashboard/admin/allUser", {
-                        method: "POST",
-                        headers: {
-                            "content-type": "application/json"
-                        },
-                        body: JSON.stringify(userDetails)
+                fetch("https://revive-mobile-server.vercel.app/dashboard/admin/allUser", {
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json"
+                    },
+                    body: JSON.stringify(userDetails)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data);
+                        toast.success('Successfully  SignIn')
+                        navigate(from, { replace: true })
                     })
-                        .then(res => res.json())
-                        .then(data => {
-                            toast.success('Successfully  SignIn')
-                            navigate(from, { replace: true })
-                        })
-                }
 
             }).catch((error) => console.error(error));
 
-        toast.success('Successfully  SignIn')
-        navigate(from, { replace: true })
+
     }
 
     return (
@@ -75,9 +60,9 @@ const Login = () => {
                 <h2 className='text-center text-3xl font-semibold text-secondary pt-2'>Login Now!</h2>
                 <form onSubmit={handleSubmit(handleLogin)} className="card-body" >
                     <div className="form-control  mb-7">
-                        <button onClick={handleGoogleLogin} className="btn btn-outline btn-primary  no-animation hover:text-white"> Login With
+                        <Link onClick={handleGoogleLogin} className="btn btn-outline btn-primary  no-animation hover:text-white"> Login With
                             <img className='h-10 w-20 mb-2 ml-2' src="https://media.tenor.com/ZV4jX_quyecAAAAi/google.gif" alt="" />
-                        </button>
+                        </Link>
                     </div>
 
                     <div className="form-control">
