@@ -12,7 +12,7 @@ const MyWishList = () => {
     const { data: wishlistItems = [], refetch } = useQuery({
         queryKey: ["wishlistItems"],
         queryFn: async () => {
-            const res = await fetch(`https://revive-mobile-server.vercel.app/dashboard/wishlistItems?userEmail=${user?.email}`);
+            const res = await fetch(`https://revive-mobile-server-abusayed987.vercel.app/dashboard/wishlistItems?userEmail=${user?.email}`);
             const data = await res.json();
             return data;
         }
@@ -23,7 +23,7 @@ const MyWishList = () => {
     }
     const handleWishItemDelete = (deleteWishItem) => {
         console.log(deleteWishItem._id);
-        fetch(`http://localhost:4000/wishlistItem/${deleteWishItem._id}`, {
+        fetch(`https://revive-mobile-server-abusayed987.vercel.app/wishlistItem/${deleteWishItem._id}`, {
             method: "DELETE",
         })
             .then(res => res.json())

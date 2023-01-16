@@ -13,7 +13,7 @@ const DashboardLayout = () => {
 
     const { data: userInfo = {} } = useQuery({
         queryKey: ["userInfo"],
-        queryFn: () => fetch(`https://revive-mobile-server.vercel.app/allUser/${email}`).then(res => res.json())
+        queryFn: () => fetch(`https://revive-mobile-server-abusayed987.vercel.app/allUser/${email}`).then(res => res.json())
     })
     const { role } = userInfo;
 
@@ -34,7 +34,7 @@ const DashboardLayout = () => {
                 </div>
                 <div className="drawer-side lg:shadow-xl">
                     <label htmlFor="revive-drawer" className="drawer-overlay"></label>
-                    <ul className="menu p-4 w-52  text-base-content">
+                    <ul className="menu p-4 w-52 bg-cyan-50 lg:bg-inherit  text-base-content">
                         {/* as a buyer  */}
                         {(role === "buyer") &&
                             <>

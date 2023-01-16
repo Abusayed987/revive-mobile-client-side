@@ -3,7 +3,7 @@
 ## Live website link: https://revivemobile999.web.app/
 
 
-# Top 5 Main Feature in this website:
+# Top 5 Main Feature's in this website:
 
 ### 1. The fronted based on React, React Router Dom, tailwind css (Daisy UI), Tanstack Query , react form hook, 
 
@@ -14,7 +14,7 @@
 ### 4. Fully Responsive for laptop, mobile and tablet..
 
 ### 5. create Different Protected Route for User, Seller , Admin .
-
+### 
 
 # Let's Explore the Admin Route:
 ### adminEmail: reviveadmin@gmail.com

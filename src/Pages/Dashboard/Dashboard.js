@@ -11,7 +11,7 @@ const Dashboard = () => {
 
     const { data: userInfo = {} } = useQuery({
         queryKey: ["userInfo"],
-        queryFn: () => fetch(`https://revive-mobile-server.vercel.app/allUser/${email}`).then(res => res.json())
+        queryFn: () => fetch(`https://revive-mobile-server-abusayed987.vercel.app/allUser/${email}`).then(res => res.json())
     })
     const { role } = userInfo;
 

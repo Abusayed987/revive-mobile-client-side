@@ -8,7 +8,7 @@ const useAdmin = email => {
 
     useEffect(() => {
         if (email) {
-            fetch(`https://revive-mobile-server.vercel.app/allUser/${email}`)
+            fetch(`https://revive-mobile-server-abusayed987.vercel.app/allUser/${email}`)
                 .then(res => res.json())
                 .then(data => {
                     if (data.role === "admin") {

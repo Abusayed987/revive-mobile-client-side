@@ -14,7 +14,7 @@ const MyProducts = () => {
 
     const { data: sellerProducts = [], isLoading, refetch } = useQuery({
         queryKey: "sellerProducts",
-        queryFn: () => fetch(`https://revive-mobile-server.vercel.app/sellerProducts?sellerEmail=${email}`)
+        queryFn: () => fetch(`https://revive-mobile-server-abusayed987.vercel.app/sellerProducts?sellerEmail=${email}`)
             .then(res => res.json())
     })
     const closeModal = () => {
@@ -22,7 +22,7 @@ const MyProducts = () => {
     }
     const handleMyProductDelete = (MyProduct) => {
         console.log(MyProduct._id);
-        fetch(`http://localhost:4000/myProduct/${MyProduct._id}`, {
+        fetch(`https://revive-mobile-server-abusayed987.vercel.app/myProduct/${MyProduct._id}`, {
             method: "DELETE",
         })
             .then(res => res.json())

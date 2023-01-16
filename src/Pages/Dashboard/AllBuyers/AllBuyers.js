@@ -10,7 +10,7 @@ const AllBuyers = () => {
 
     const { data: AllBuyers = [], refetch } = useQuery({
         queryKey: "AllBuyers",
-        queryFn: () => fetch("https://revive-mobile-server.vercel.app/dashboard/admin/allBuyers").then(res => res.json())
+        queryFn: () => fetch("https://revive-mobile-server-abusayed987.vercel.app/dashboard/admin/allBuyers").then(res => res.json())
     })
 
     const closeModal = () => {
@@ -18,7 +18,7 @@ const AllBuyers = () => {
     }
 
     const handleBuyerDelete = (deleteBuyer) => {
-        fetch(`http://localhost:4000/buyer/${deleteBuyer._id}`, {
+        fetch(`https://revive-mobile-server-abusayed987.vercel.app/buyer/${deleteBuyer._id}`, {
             method: "DELETE",
         })
             .then(res => res.json())

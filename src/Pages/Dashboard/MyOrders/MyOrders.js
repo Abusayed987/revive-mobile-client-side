@@ -10,13 +10,13 @@ const MyOrders = () => {
     const { data: bookingItems = [] } = useQuery({
         queryKey: ["bookingItems"],
         queryFn: async () => {
-            const res = await fetch(`https://revive-mobile-server.vercel.app/dashboard/bookingItems?userEmail=${user?.email}`);
+            const res = await fetch(`https://revive-mobile-server-abusayed987.vercel.app/dashboard/bookingItems?userEmail=${user?.email}`);
             const data = await res.json();
             return data;
         }
     })
 
-    console.log(bookingItems);
+    // console.log(bookingItems);
 
 
     return (

@@ -45,7 +45,7 @@ const Signup = () => {
                             role: role,
                             isVerified: "false",
                         }
-                        fetch("https://revive-mobile-server.vercel.app/dashboard/admin/allUser", {
+                        fetch("https://revive-mobile-server-abusayed987.vercel.app/dashboard/admin/allUser", {
                             method: "POST",
                             headers: {
                                 "content-type": "application/json"
@@ -83,7 +83,7 @@ const Signup = () => {
                     role: "buyer",
                     isVerified: "false"
                 }
-                fetch("https://revive-mobile-server.vercel.app/dashboard/admin/allUser", {
+                fetch("https://revive-mobile-server-abusayed987.vercel.app/dashboard/admin/allUser", {
                     method: "POST",
                     headers: {
                         "content-type": "application/json"

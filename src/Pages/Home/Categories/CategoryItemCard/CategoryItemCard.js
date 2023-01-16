@@ -37,7 +37,7 @@ const CategoryItemCard = ({ product }) => {
             phone: phone
         };
 
-        fetch('https://revive-mobile-server.vercel.app/dashboard/wishlist', {
+        fetch('https://revive-mobile-server-abusayed987.vercel.app/dashboard/wishlist', {
             method: "POST",
             headers: {
                 "content-type": "application/json"
@@ -74,13 +74,13 @@ const CategoryItemCard = ({ product }) => {
             metingLocation: metingLocation,
             usesTime: usesTime,
             allReadyBook: true,
-            payment: false,
+            payment: "false",
             sellerLocation: location,
             sellerName: sellerName,
             sellerPhone: product?.phone,
         }
 
-        fetch('https://revive-mobile-server.vercel.app/booking', {
+        fetch('https://revive-mobile-server-abusayed987.vercel.app/booking', {
             method: "POST",
             headers: {
                 "content-type": "application/json"
@@ -92,7 +92,6 @@ const CategoryItemCard = ({ product }) => {
                 if (data.acknowledged) {
                     toast.success(`${productName} Booking Confirmed`);
                     navigate('/dashboard/myOrders')
-                    // AI khane up date korte hobe
                 }
                 else {
                     toast.error(data.message)

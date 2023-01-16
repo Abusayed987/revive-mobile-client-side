@@ -11,7 +11,7 @@ const AllSellers = () => {
 
     const { data: AllSellers = [], refetch } = useQuery({
         queryKey: "AllSellers",
-        queryFn: () => fetch("https://revive-mobile-server.vercel.app/dashboard/admin/allSellers").then(res => res.json())
+        queryFn: () => fetch("https://revive-mobile-server-abusayed987.vercel.app/dashboard/admin/allSellers").then(res => res.json())
     })
     const closeModal = () => {
         setDeleteSeller(null)
@@ -19,7 +19,7 @@ const AllSellers = () => {
     }
 
     const handleSellerDelete = (deleteSeller) => {
-        fetch(`http://localhost:4000/seller/${deleteSeller._id}`, {
+        fetch(`https://revive-mobile-server-abusayed987.vercel.app/seller/${deleteSeller._id}`, {
             method: "DELETE",
         })
             .then(res => res.json())
@@ -34,7 +34,7 @@ const AllSellers = () => {
     }
     const handleSellerVerified = (addVerifiedSeller) => {
         console.log(addVerifiedSeller._id);
-        fetch(`http://localhost:4000/addVerifiedSeller/${addVerifiedSeller._id}`, {
+        fetch(`https://revive-mobile-server-abusayed987.vercel.app/addVerifiedSeller/${addVerifiedSeller._id}`, {
             method: "PUT",
         })
             .then(res => res.json())

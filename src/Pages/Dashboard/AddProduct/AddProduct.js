@@ -15,7 +15,7 @@ const AddProduct = () => {
     const { data: categoriesItems = [] } = useQuery({
         queryKey: "categoriesItems",
         queryFn: async () => {
-            const res = await fetch('https://revive-mobile-server.vercel.app/categories');
+            const res = await fetch('https://revive-mobile-server-abusayed987.vercel.app/categories');
             const data = await res.json();
             return data;
         }
@@ -23,7 +23,7 @@ const AddProduct = () => {
 
     const { data: singleSeller = {}, refetch } = useQuery({
         queryKey: "singleSeller",
-        queryFn: () => fetch(`http://localhost:4000/dashboard/admin/singleSeller/${user.email}`).then(res => res.json())
+        queryFn: () => fetch(`https://revive-mobile-server-abusayed987.vercel.app/dashboard/admin/singleSeller/${user.email}`).then(res => res.json())
     })
 
     console.log(singleSeller);
@@ -66,10 +66,11 @@ const AddProduct = () => {
                         Condition: data.condition,
                         phone: data.phone,
                         categoryId: categoriesItems.find(ctg => ctg.name === data.category)._id,
-                        imageUrl: imgUrl
+                        imageUrl: imgUrl,
+                        payment: "false",
                     }
 
-                    fetch("https://revive-mobile-server.vercel.app/dashboard/seller/addProduct", {
+                    fetch("https://revive-mobile-server-abusayed987.vercel.app/dashboard/seller/addProduct", {
                         method: "POST",
                         headers: {
                             "content-type": "application/json"
